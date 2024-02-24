@@ -2,17 +2,20 @@
 using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using Mission06_Hart.Models;
 
 #nullable disable
 
-namespace Mission_06Hart.Migrations
+namespace Mission06_Hart.Migrations
 {
     [DbContext(typeof(MovieContext))]
-    partial class MovieContextModelSnapshot : ModelSnapshot
+    [Migration("20240217052918_First")]
+    partial class First
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder.HasAnnotation("ProductVersion", "8.0.1");
@@ -46,6 +49,7 @@ namespace Mission_06Hart.Migrations
                     .HasColumnType("TEXT");
 
                 b.Property<string>("Subcategory")
+                    .IsRequired()
                     .HasColumnType("TEXT");
 
                 b.Property<string>("Title")

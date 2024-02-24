@@ -1,33 +1,45 @@
 using Microsoft.AspNetCore.Mvc;
 using Mission06_Hart.Models;
+using Microsoft.Extensions.Logging;
 using System.Diagnostics;
 
 namespace Mission06_Hart.Controllers
 {
     public class HomeController : Controller
     {
-        private readonly MovieContext _context;
+        private readonly MovieContext _MovieContext;
+        //private readonly ILogger<HomeController> _logger;
 
-        public HomeController(MovieContext context)
+        // Consolidate constructors into one
+        public HomeController(MovieContext MovieContext) //contructor temp
         {
-            _context = context;
+            _MovieContext = MovieContext;
+            //_logger = logger;
         }
 
         public IActionResult Index()
         {
-            // Example code for the HomeController Index action
             return View();
         }
 
-        public IActionResult Movies()
+        public IActionResult Joel()
         {
             return View();
         }
 
-        [ResponseCache(Duration = 0, Location = ResponseCacheLocation.None, NoStore = true)]
-        public IActionResult Error()
+        [HttpGet]
+        public IActionResult Form()
         {
-            return View(new ErrorViewModel { RequestId = Activity.Current?.Id ?? HttpContext.TraceIdentifier });
+            return View();
         }
+
+        [HttpPost]
+        public IActionResult Form(Movie response)
+        {
+            _MovieContext.Movies.Add(response);
+            _MovieContext.SaveChanges();
+            return View("Confirmation", response);
+        }
+
     }
 }
